@@ -1,15 +1,11 @@
 package com.example.logs.controller;
 
 
-import com.example.logs.exception.AppException;
-import com.example.logs.model.Role;
-import com.example.logs.model.RoleName;
 import com.example.logs.model.User;
 import com.example.logs.payload.ApiResponse;
 import com.example.logs.payload.JwtAuthenticationResponse;
 import com.example.logs.payload.LoginRequest;
 import com.example.logs.payload.SignUpRequest;
-import com.example.logs.repository.RoleRepository;
 import com.example.logs.repository.UserRepository;
 import com.example.logs.security.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +24,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
-import java.util.Collections;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -39,9 +34,6 @@ public class AuthController {
 
     @Autowired
     UserRepository userRepository;
-
-    @Autowired
-    RoleRepository roleRepository;
 
     @Autowired
     PasswordEncoder passwordEncoder;
@@ -82,11 +74,6 @@ public class AuthController {
                 signUpRequest.getEmail(), signUpRequest.getPassword());
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-
-        Role userRole = roleRepository.findByName(RoleName.ROLE_USER)
-                .orElseThrow(() -> new AppException("User Role not set."));
-
-        user.setRoles(Collections.singleton(userRole));
 
         User result = userRepository.save(user);
 

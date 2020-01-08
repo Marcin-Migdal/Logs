@@ -1,4 +1,4 @@
-package com.example.logs.Facade;
+package com.example.logs.facade;
 
 import com.example.logs.dto.LogDto;
 import com.example.logs.exception.ResourceNotFoundException;
@@ -9,6 +9,7 @@ import com.example.logs.payload.LogUpdateRequest;
 import com.example.logs.repository.LogRepository;
 import com.example.logs.repository.UserRepository;
 import com.example.logs.security.UserPrincipal;
+import lombok.Builder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@Builder
 public class LogFacade {
 
     @Autowired
@@ -28,7 +30,7 @@ public class LogFacade {
 
     private static final Logger logger = LoggerFactory.getLogger(LogFacade.class);
 
-    public LogResponse createLog( LogRequest logRequest, UserPrincipal currentUser) {
+    public LogResponse createLog(LogRequest logRequest, UserPrincipal currentUser) {
         Log log = Log.builder()
                 .date(logRequest.getDate())
                 .user(userRepository.getOne(currentUser.getId()))
@@ -73,13 +75,12 @@ public class LogFacade {
     }
 
     private LogResponse mapLogDtoToLogResponse(LogDto logDto) {
-        LogResponse logResponse = LogResponse.builder()
+
+        return LogResponse.builder()
                 .id(logDto.getId())
                 .date(logDto.getDate())
                 .activity(logDto.getActivity())
                 .activityTime(logDto.getActivityTime())
                 .build();
-
-        return logResponse;
     }
 }
