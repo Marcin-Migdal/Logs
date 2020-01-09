@@ -10,6 +10,7 @@ import org.springframework.data.domain.Sort;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Random;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class UserInMemoryRepository implements UserRepository {
@@ -95,7 +96,13 @@ public class UserInMemoryRepository implements UserRepository {
 
     @Override
     public <S extends User> S save(S s) {
-        return null;
+        Long id = s.getId();
+        if (id == null) {
+            id = new Random().nextLong();
+            s.setId(id);
+        }
+        users.put(id, s);
+        return s;
     }
 
     @Override

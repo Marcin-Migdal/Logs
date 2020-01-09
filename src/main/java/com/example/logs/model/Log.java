@@ -20,6 +20,7 @@ public class Log extends DateAudit {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Setter
     Long id;
 
     String date;
