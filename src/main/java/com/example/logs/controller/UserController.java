@@ -1,6 +1,5 @@
 package com.example.logs.controller;
 
-
 import com.example.logs.payload.UserIdentityAvailability;
 import com.example.logs.payload.UserSummary;
 import com.example.logs.repository.UserRepository;

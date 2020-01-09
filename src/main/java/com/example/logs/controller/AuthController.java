@@ -1,6 +1,5 @@
 package com.example.logs.controller;
 
-
 import com.example.logs.model.User;
 import com.example.logs.payload.ApiResponse;
 import com.example.logs.payload.JwtAuthenticationResponse;

@@ -38,8 +38,10 @@ public class LogController {
         LogResponse logResponse = logFacade.createLog(logRequest, currentUser);
 
         URI location = ServletUriComponentsBuilder
-                .fromCurrentRequest().path("/{pollId}")
+                .fromCurrentRequest().path("/byId/{logId}") // TODO PO CO TO JEST??!
                 .buildAndExpand(logResponse.getId()).toUri();
+
+        System.out.println(location.toString()); // TODO do tego wyżej
 
         return ResponseEntity.created(location)
                 .body(new ApiResponse(true, "Log Created Successfully"));

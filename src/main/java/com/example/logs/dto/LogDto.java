@@ -1,8 +1,10 @@
 package com.example.logs.dto;
 
-
 import com.example.logs.model.User;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 
 @Builder

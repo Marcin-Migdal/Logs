@@ -1,6 +1,5 @@
 package com.example.logs.payload;
 
-
 import lombok.Getter;
 import lombok.Setter;
 
