@@ -18,10 +18,8 @@ class AuthSpec extends Specification {
 
     AuthFacade authFacade = AuthFacadeCreator.createAuthFacade(userRepository, authenticationManager, passwordEncoder, tokenProvider)
 
-    def "user"() {
-        given: ""
-
-        when: ""
+    def "user should be able to register"() {
+        when: "user is registering"
             User user = authFacade.registerUser(SignUpRequest.builder()
                     .email("jj@gmail.com")
                     .name("Jan Kowalski")

@@ -15,8 +15,8 @@ class LogSpec extends Specification {
 
     LogFacade logFacade = LogFacadeCreator.createLogFacade(logRepository, userRepository)
 
-    def "Pierwszy test"() {
-        given: ""
+    def "user should be able to create log"() {
+        given: "there is user"
             UserPrincipal userPrincipal = new UserPrincipal(1L, "Jan Kowalski", "jj", "jj@gmail.com", "Ala123!")
             LogRequest logRequest = LogRequest.builder()
                     .date("2020-01-08")
