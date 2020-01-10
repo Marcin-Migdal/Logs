@@ -41,8 +41,6 @@ public class LogController {
                 .fromCurrentRequest().path("/byId/{logId}")
                 .buildAndExpand(logResponse.getId()).toUri();
 
-        System.out.println(location.toString());
-
         return ResponseEntity.created(location)
                 .body(new ApiResponse(true, "Log Created Successfully"));
     }

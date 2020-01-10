@@ -2,6 +2,7 @@ package com.project.logs
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.project.logs.payload.JwtAuthenticationResponse
+import com.project.logs.payload.LogRequest
 import com.project.logs.payload.LoginRequest
 import com.project.logs.payload.SignUpRequest
 import org.springframework.beans.factory.annotation.Autowired
@@ -24,7 +25,7 @@ class AcceptanceSpec extends Specification {
     @Autowired
     ObjectMapper objectMapper
 
-    def "Integration test"() {
+    def "Adam should be able to see logs from 2020-04-20"() {
         when: "Adam should be able to register"
             SignUpRequest signUpRequest = SignUpRequest.builder()
                     .username("adam_nowak")
@@ -62,19 +63,48 @@ class AcceptanceSpec extends Specification {
             }
             """))
 
-
-
-        when: "Adam should be able to see logs from 2020-04-20"
+        when: "Adam should be able to add log from 2020-04-20"
             String jwtString = result.andReturn().getResponse().getContentAsString()
             JwtAuthenticationResponse jwt = objectMapper.readValue(jwtString, JwtAuthenticationResponse.class)
             def token = "Bearer " + jwt.accessToken
 
+            LogRequest logRequest = LogRequest.builder()
+                    .date("2020-04-20")
+                    .activity("Pisanie testów integracyjnych")
+                    .activityTime(12345L)
+                    .build()
+
+            result = mockMvc.perform(MockMvcRequestBuilders
+                    .post("/api/logs")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(objectMapper.writeValueAsString(logRequest))
+                    .header("Authorization", token))
+
+        then: "Log was added"
+            result.andExpect(MockMvcResultMatchers.status().isCreated())
+            result.andExpect(MockMvcResultMatchers.content().json("""
+            {
+                "success":true,
+                "message":"Log Created Successfully"
+            }
+            """))
+
+        when: "Adam should be able to see logs from 2020-04-20"
             result = mockMvc.perform(MockMvcRequestBuilders
                     .get("/api/logs/byDate/2020-04-20")
                     .contentType(MediaType.APPLICATION_JSON)
                     .header("Authorization", token))
-        then: ""
+        then: "Adam sees logs from 2020-04-20"
             result.andExpect(MockMvcResultMatchers.status().isOk())
+            result.andExpect(MockMvcResultMatchers.content().json("""
+            [
+                {
+                    "id":1,
+                    "date":"2020-04-20",
+                    "activity":"Pisanie testów integracyjnych",
+                    "activityTime":12345
+                }
+            ]
+            """))
     }
-
 }
