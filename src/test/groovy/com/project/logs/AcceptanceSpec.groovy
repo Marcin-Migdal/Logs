@@ -1,6 +1,8 @@
 package com.project.logs
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.project.logs.payload.JwtAuthenticationResponse
+import com.project.logs.payload.LoginRequest
 import com.project.logs.payload.SignUpRequest
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
@@ -22,8 +24,8 @@ class AcceptanceSpec extends Specification {
     @Autowired
     ObjectMapper objectMapper
 
-    def "asd"() {
-        when: ""
+    def "Integration test"() {
+        when: "Adam should be able to register"
             SignUpRequest signUpRequest = SignUpRequest.builder()
                     .username("adam_nowak")
                     .password("Ala123")
@@ -34,7 +36,7 @@ class AcceptanceSpec extends Specification {
                     .post("/api/auth/signup")
                     .contentType(MediaType.APPLICATION_JSON)
                     .content(objectMapper.writeValueAsString(signUpRequest)))
-        then: ""
+        then: "Adam is registered"
             result.andExpect(MockMvcResultMatchers.status().isCreated())
             result.andExpect(MockMvcResultMatchers.content().json("""
             {
@@ -42,5 +44,37 @@ class AcceptanceSpec extends Specification {
                 "message":"User registered successfully"
             }
             """))
+
+        when: "Adam should be able to log in"
+            def loginRequest = LoginRequest.builder()
+                    .usernameOrEmail("adam_nowak")
+                    .password("Ala123")
+                    .build()
+            result = mockMvc.perform(MockMvcRequestBuilders
+                    .post("/api/auth/signin")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(objectMapper.writeValueAsString(loginRequest)))
+        then: "Adam is logged in"
+            result.andExpect(MockMvcResultMatchers.status().isOk())
+            result.andExpect(MockMvcResultMatchers.content().json("""
+            {
+                "tokenType":"Bearer"
+            }
+            """))
+
+
+
+        when: "Adam should be able to see logs from 2020-04-20"
+            String jwtString = result.andReturn().getResponse().getContentAsString()
+            JwtAuthenticationResponse jwt = objectMapper.readValue(jwtString, JwtAuthenticationResponse.class)
+            def token = "Bearer " + jwt.accessToken
+
+            result = mockMvc.perform(MockMvcRequestBuilders
+                    .get("/api/logs/byDate/2020-04-20")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .header("Authorization", token))
+        then: ""
+            result.andExpect(MockMvcResultMatchers.status().isOk())
     }
+
 }
