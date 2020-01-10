@@ -10,13 +10,13 @@ import org.springframework.data.domain.Sort;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.Random;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
 public class LogInMemoryRepository implements LogRepository {
 
-    protected final Map<Long, Log> logs = new ConcurrentHashMap<>();
+    private final Map<Long, Log> logs = new ConcurrentHashMap<>();
+    private Long nextId = 1L;
 
     @Override
     public List<Log> findByDateAndUserId(String date, Long userId) {
@@ -84,7 +84,7 @@ public class LogInMemoryRepository implements LogRepository {
     public <S extends Log> S save(S s) {
         Long id = s.getId();
         if (id == null) {
-            id = new Random().nextLong();
+            id = getNextId();
             s.setId(id);
         }
         logs.put(id, s);
@@ -149,5 +149,9 @@ public class LogInMemoryRepository implements LogRepository {
     @Override
     public <S extends Log> boolean exists(Example<S> example) {
         return false;
+    }
+
+    private Long getNextId() {
+        return nextId++;
     }
 }

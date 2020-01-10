@@ -15,7 +15,8 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class UserInMemoryRepository implements UserRepository {
 
-    protected final Map<Long, User> users = new ConcurrentHashMap<>();
+    private final Map<Long, User> users = new ConcurrentHashMap<>();
+    private Long nextId = 1L;
 
     @Override
     public Optional<User> findByEmail(String email) {
@@ -117,7 +118,7 @@ public class UserInMemoryRepository implements UserRepository {
 
     @Override
     public boolean existsById(Long aLong) {
-        return false;
+        return users.containsKey(aLong);
     }
 
     @Override
@@ -173,5 +174,9 @@ public class UserInMemoryRepository implements UserRepository {
     @Override
     public <S extends User> boolean exists(Example<S> example) {
         return false;
+    }
+
+    private Long getNextId() {
+        return nextId++;
     }
 }
