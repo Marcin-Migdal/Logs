@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @Builder
-public class AuthFacade {
+public class UserFacade {
 
     @Autowired
     AuthenticationManager authenticationManager;
@@ -54,7 +54,6 @@ public class AuthFacade {
             throw new EmailAlreadyExistsException("Email " + signUpRequest.getUsername() + " already in use!");
         }
 
-        // Creating user's account
         User user = new User(signUpRequest.getName(), signUpRequest.getUsername(),
                 signUpRequest.getEmail(), signUpRequest.getPassword());
 

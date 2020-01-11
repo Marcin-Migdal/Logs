@@ -21,21 +21,21 @@ import java.net.URI;
 
 @RestController
 @RequestMapping("/api/auth")
-public class AuthController {
+public class UserController {
 
     @Autowired
-    AuthFacade authfacade;
+    UserFacade userFacade;
 
     @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
-        String jwt = authfacade.authenticateUser(loginRequest);
+        String jwt = userFacade.authenticateUser(loginRequest);
         return ResponseEntity.ok(new JwtAuthenticationResponse(jwt));
     }
 
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignUpRequest signUpRequest) {
         try {
-            User result = authfacade.registerUser(signUpRequest);
+            User result = userFacade.registerUser(signUpRequest);
             URI location = ServletUriComponentsBuilder
                     .fromCurrentContextPath().path("/api/users/{username}")
                     .buildAndExpand(result.getUsername()).toUri();

@@ -13,12 +13,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api")
-public class UserController {
+public class UserControllerToDelete {
 
     @Autowired
     private UserRepository userRepository;
 
-    private static final Logger logger = LoggerFactory.getLogger(UserController.class);
+    private static final Logger logger = LoggerFactory.getLogger(UserControllerToDelete.class);
 
     @GetMapping("/user/me")
     public UserSummary getCurrentUser(@CurrentUser UserPrincipal currentUser) {

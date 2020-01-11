@@ -6,9 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-public class AuthFacadeCreator {
+public class UserFacadeCreator {
 
-    private AuthFacade authFacade;
+    private UserFacade userFacade;
 
     private UserRepository userRepository;
 
@@ -18,9 +18,9 @@ public class AuthFacadeCreator {
 
     private JwtTokenProvider tokenProvider;
 
-    public static AuthFacade createAuthFacade(UserRepository userRepository, @Autowired AuthenticationManager authenticationManager,
+    public static UserFacade createUserFacade(UserRepository userRepository, @Autowired AuthenticationManager authenticationManager,
                                               @Autowired PasswordEncoder passwordEncoder, @Autowired JwtTokenProvider tokenProvider) {
-        return AuthFacade.builder()
+        return UserFacade.builder()
                 .userRepository(userRepository)
                 .authenticationManager(authenticationManager)
                 .passwordEncoder(passwordEncoder)
