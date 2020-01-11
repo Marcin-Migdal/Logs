@@ -1,10 +1,10 @@
 package com.project.logs
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.project.logs.payload.JwtAuthenticationResponse
-import com.project.logs.payload.LogRequest
-import com.project.logs.payload.LoginRequest
-import com.project.logs.payload.SignUpRequest
+import com.project.logs.users.dto.JwtAuthenticationResponse
+import com.project.logs.logs.dto.LogRequest
+import com.project.logs.users.dto.LoginRequest
+import com.project.logs.users.dto.SignUpRequest
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.context.SpringBootTest
