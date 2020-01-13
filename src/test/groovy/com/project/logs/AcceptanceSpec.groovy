@@ -106,5 +106,14 @@ class AcceptanceSpec extends Specification {
                 }
             ]
             """))
+
+        when: "Adam should be able to delete his logs"
+            result = mockMvc.perform(MockMvcRequestBuilders
+                    .delete("/api/logs/1")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .header("Authorization", token))
+        then: "Adam's logs are empty"
+            result.andExpect(MockMvcResultMatchers.status().isOk())
+            result.andExpect(MockMvcResultMatchers.content().string("Log deleted"))
     }
 }
