@@ -7,16 +7,24 @@ import com.project.logs.logs.dto.LogRequest
 import com.project.logs.logs.dto.LogResponse
 import com.project.logs.logs.repository.LogRepository
 import com.project.logs.users.domain.UserFacade
+import com.project.logs.users.model.User
 import spock.lang.Specification
 
 class LogSpec extends Specification {
     LogRepository logRepository = new LogInMemoryRepository()
-    UserFacade userFacade =  Mock(UserFacade.class)
+    UserFacade userFacade = Mock(UserFacade.class)
 
     LogFacade logFacade = LogFacadeCreator.createLogFacade(logRepository, userFacade)
 
+    void userFacadeGetUser() {
+        userFacade.getUser(_ as Long) >> {
+            return new User(it[0] as Long, "Jan Kowalski", "jj", "jj@gmail.com", "Ala123!")
+        }
+    }
+
     def "user should be able to create log"() {
         given: "there is user"
+            userFacadeGetUser()
             UserPrincipal userPrincipal = new UserPrincipal(1L, "Jan Kowalski", "jj", "jj@gmail.com", "Ala123!")
             LogRequest logRequest = LogRequest.builder()
                     .date("2020-01-08")

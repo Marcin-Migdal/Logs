@@ -63,7 +63,7 @@ public class UserFacade {
         return result;
     }
 
-    public User getUser(Long userId){
+    public User getUser(Long userId) {
         return userRepository.getOne(userId);
     }
 }
