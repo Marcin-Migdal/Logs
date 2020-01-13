@@ -7,6 +7,7 @@ import com.project.logs.logs.dto.LogRequest;
 import com.project.logs.logs.dto.LogResponse;
 import com.project.logs.logs.dto.LogUpdateRequest;
 import com.project.logs.logs.repository.LogRepository;
+import com.project.logs.users.domain.UserFacade;
 import com.project.logs.users.repository.UserRepository;
 import com.project.logs.base.security.UserPrincipal;
 import lombok.Builder;
@@ -26,14 +27,14 @@ public class LogFacade {
     private LogRepository logRepository;
 
     @Autowired
-    private UserRepository userRepository;
+    private UserFacade userFacade;
 
     private static final Logger logger = LoggerFactory.getLogger(LogFacade.class);
 
     public LogResponse createLog(LogRequest logRequest, UserPrincipal currentUser) {
         Log log = Log.builder()
                 .date(logRequest.getDate())
-                .user(userRepository.getOne(currentUser.getId()))
+                .user(userFacade.getUser(currentUser.getId()))
                 .activity(logRequest.getActivity())
                 .activityTime(logRequest.getActivityTime())
                 .build();

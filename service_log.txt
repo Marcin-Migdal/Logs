@@ -1,0 +1,6 @@
+œr. sty 08 20:47:32 2020 UTC : Failed to create Service pipe (2)
+œr. sty 08 20:47:32 2020 UTC : Failed to connect to Steam Service (131)
+czw. sty 09 07:51:44 2020 UTC : Failed to create Service pipe (2)
+czw. sty 09 07:51:44 2020 UTC : Failed to connect to Steam Service (183)
+czw. sty 09 07:51:45 2020 UTC : Failed to create Service pipe (2)
+czw. sty 09 07:51:45 2020 UTC : Failed to connect to Steam Service (183)

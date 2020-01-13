@@ -24,7 +24,7 @@ public class UserFacade {
     AuthenticationManager authenticationManager;
 
     @Autowired
-    UserRepository userRepository;
+    public UserRepository userRepository;
 
     @Autowired
     PasswordEncoder passwordEncoder;
@@ -61,5 +61,9 @@ public class UserFacade {
 
         User result = userRepository.save(user);
         return result;
+    }
+
+    public User getUser(Long userId){
+        return userRepository.getOne(userId);
     }
 }

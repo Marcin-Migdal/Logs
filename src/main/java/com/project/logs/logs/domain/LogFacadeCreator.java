@@ -1,6 +1,7 @@
 package com.project.logs.logs.domain;
 
 import com.project.logs.logs.repository.LogRepository;
+import com.project.logs.users.domain.UserFacade;
 import com.project.logs.users.repository.UserRepository;
 
 public class LogFacadeCreator {
@@ -9,12 +10,12 @@ public class LogFacadeCreator {
 
     private LogRepository logRepository;
 
-    private UserRepository userRepository;
+    private UserFacade userFacade;
 
-    public static LogFacade createLogFacade(LogRepository logRepository, UserRepository userRepository) {
+    public static LogFacade createLogFacade(LogRepository logRepository, UserFacade userFacade) {
         return LogFacade.builder()
                 .logRepository(logRepository)
-                .userRepository(userRepository)
+                .userFacade(userFacade)
                 .build();
     }
 
