@@ -1,4 +1,4 @@
-package com.project.logs.users;
+package groovy.com.project.logs.users;
 
 import com.project.logs.users.model.User;
 import com.project.logs.users.repository.UserRepository;

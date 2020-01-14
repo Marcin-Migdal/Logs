@@ -1,4 +1,4 @@
-package com.project.logs.logs;
+package groovy.com.project.logs.logs;
 
 import com.project.logs.logs.model.Log;
 import com.project.logs.logs.repository.LogRepository;
@@ -62,7 +62,7 @@ public class LogInMemoryRepository implements LogRepository {
 
     @Override
     public void deleteById(Long aLong) {
-
+        logs.remove(aLong);
     }
 
     @Override

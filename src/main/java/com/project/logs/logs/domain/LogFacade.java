@@ -8,7 +8,6 @@ import com.project.logs.logs.dto.LogResponse;
 import com.project.logs.logs.dto.LogUpdateRequest;
 import com.project.logs.logs.repository.LogRepository;
 import com.project.logs.users.domain.UserFacade;
-import com.project.logs.users.repository.UserRepository;
 import com.project.logs.base.security.UserPrincipal;
 import lombok.Builder;
 import org.slf4j.Logger;
