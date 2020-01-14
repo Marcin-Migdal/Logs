@@ -24,7 +24,7 @@ public class UserFacade {
     AuthenticationManager authenticationManager;
 
     @Autowired
-    public UserRepository userRepository;
+    UserRepository userRepository;
 
     @Autowired
     PasswordEncoder passwordEncoder;

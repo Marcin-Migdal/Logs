@@ -10,7 +10,6 @@ import com.project.logs.logs.exception.ResourceNotFoundException
 import com.project.logs.logs.repository.LogRepository
 import com.project.logs.users.domain.UserFacade
 import com.project.logs.users.model.User
-import groovy.com.project.logs.logs.LogInMemoryRepository
 import spock.lang.Specification
 
 class LogSpec extends Specification {
@@ -110,6 +109,6 @@ class LogSpec extends Specification {
         when: "user try to get logs"
             List<LogResponse> logsByDate = logFacade.getLogsByDate("2020-01-08", userPrincipal)
         then: "user get logs"
-            !logsByDate.isEmpty()
+            logsByDate.size() == 2
     }
 }

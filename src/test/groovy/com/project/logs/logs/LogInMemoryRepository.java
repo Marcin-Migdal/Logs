@@ -1,4 +1,4 @@
-package groovy.com.project.logs.logs;
+package com.project.logs.logs;
 
 import com.project.logs.logs.model.Log;
 import com.project.logs.logs.repository.LogRepository;
